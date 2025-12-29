@@ -13,7 +13,7 @@ using namespace std;
 #define HEIGHT 500
 #define WHITE 0xffffffff
 #define PINK 0xffff00ff
-#define g 0.2
+#define g 0.5
 #define TRAJECTORY_LIMIT 100
 
 struct Circle {
