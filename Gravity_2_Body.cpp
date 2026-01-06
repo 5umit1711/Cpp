@@ -7,10 +7,10 @@
 const int WIDTH = 800;
 const int HEIGHT = 600;
 const double G = 0.1; 
-const double SUN_MASS = 1000.0;
+const double BLACK_HOLE_MASS = 10000.0;
 const double EARTH_MASS = 1.0;
 const double DT = 0.01; 
-const double SUN_RADIUS = 10.0;
+const double BLACK_HOLE_RADIUS = 5.0;
 const double EARTH_RADIUS = 5.0;
 
 struct Vector2 {
@@ -44,7 +44,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    SDL_Window* window = SDL_CreateWindow("Gravity Simulation", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
+    SDL_Window* window = SDL_CreateWindow("Black Hole Simulation", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
     if (!window) {
         std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
         SDL_Quit();
@@ -59,9 +59,9 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    Vector2 sunPos(WIDTH / 2.0, HEIGHT / 2.0);
-    Vector2 earthPos(WIDTH / 2.0 + 200, HEIGHT / 2.0); 
-    Vector2 earthVel(0, -4); 
+    Vector2 blackHolePos(WIDTH / 2.0, HEIGHT / 2.0);
+    Vector2 earthPos(100, HEIGHT / 2.0); 
+    Vector2 earthVel(5, 0); 
 
     bool quit = false;
     SDL_Event e;
@@ -73,11 +73,11 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        Vector2 r = sunPos - earthPos;
+        Vector2 r = blackHolePos - earthPos;
         double distance = r.magnitude();
         if (distance > 0) {
             Vector2 forceDir = r.normalized();
-            double forceMag = G * SUN_MASS * EARTH_MASS / (distance * distance);
+            double forceMag = G * BLACK_HOLE_MASS * EARTH_MASS / (distance * distance);
             Vector2 force = forceDir * forceMag;
 
             Vector2 accel = force * (1.0 / EARTH_MASS);
@@ -89,8 +89,8 @@ int main(int argc, char* argv[]) {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        fillCircle(renderer, sunPos.x, sunPos.y, SUN_RADIUS);
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        fillCircle(renderer, blackHolePos.x, blackHolePos.y, BLACK_HOLE_RADIUS);
 
         SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
         fillCircle(renderer, earthPos.x, earthPos.y, EARTH_RADIUS);
