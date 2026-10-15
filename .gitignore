@@ -1,0 +1,8 @@
+# Compiled binaries and object files
+*.exe
+*.o
+*.obj
+
+# Build output
+/build/
+/cmake-build-*/
